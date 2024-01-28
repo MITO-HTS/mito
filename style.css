@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+
+h2, body {
+    font-family: 'Fredoka One', sans-serif;
+}
+
+body{
+    font-size: 22px;
+    color: rgb(0, 0, 0);
+    line-height: 3rem;
+}
+
+body {
+    background-image: url('./cells.png');
+    background-size: cover;
+}
+
+
+h2{
+    text-align: center;
+    color: black;
+}
+
+h1{
+    margin-left: 50px;
+}
+
+
+ img{
+    width: 100px;
+ }
+#chart-container{
+    -webkit-backdrop-filter: blur(10px);    backdrop-filter: blur(10px);
+    background-color: rgba(242, 242, 242, 0.5);
+    padding: 50px;
+    border-style: solid;
+ 
+    border-radius: 50px;
+    margin: 50px;
+   border-color: rgb(0, 0, 0);
+}
+
+#data-container{
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    text-align: center; /* Center text */
+    -webkit-backdrop-filter: blur(10px);    backdrop-filter: blur(10px);
+    background-color: rgba(242, 242, 242, 0.501);
+    padding: 50px;
+    border-style: solid;
+    border-color: rgb(0, 0, 0);
+    border-radius: 50px;
+    margin: 50px;
+}
+
+span{
+    margin: 20px;
+}
+
+#pieChartContainer {
+    width: 100%; /* or a specific width like 500px */
+    height: auto; /* or a specific height */
+    /* Add more space as needed */
+    padding: 30px;
+}
+
+
+
+@media screen and (max-width: 600px) {
+    #data-container img {
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center items horizontally */
+        text-align: center; /* Center text */
+        max-width: 80%; /* S
+        maller width on mobile */
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    
+    #data-container h1 {
+        font-size: .6em; /* Adjust as needed */
+        margin-left: 20px
+    }
+}
