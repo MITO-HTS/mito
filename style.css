@@ -81,21 +81,47 @@ span{
 
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 750px) {
     #data-container img {
         display: flex;
         flex-direction: column; /* Stack items vertically */
         align-items: center; /* Center items horizontally */
         text-align: center; /* Center text */
-        max-width: 95%; /* S
-        maller width on mobile */
+
         height: auto; /* Maintain aspect ratio */
-        margin: 15px;
+        margin: 0px;
+        padding: 15px;
     }
 
     
     #data-container h1 {
-        font-size: .6em; /* Adjust as needed */
-        margin-left: 20px
+        font-size: 1em; /* Adjust as needed */
+        margin-left: 0px;
+        margin: 15px;
+        padding: 15px;
     }
+
+    #data-container {
+
+        margin-left: 0px;
+        margin: 15px;
+        padding: 15px;
+    }
+
+    #pieChartContainer {
+
+        /* Add more space as needed */
+        padding: 15px;
+        margin: 15px;
+    }
+
+
+    #chart-container{
+        padding: 15px;
+        margin: 15px;
+    }
+
+h1{
+    margin-left: 0px;
+}
 }
