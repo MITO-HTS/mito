@@ -55,6 +55,19 @@ h1{
     margin: 50px;
 }
 
+
+
+a{
+    color: rgb(106, 255, 82);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+}
+
+a:hover{
+    color: rgb(47, 220, 21);
+}
+
+
 span{
     margin: 20px;
 }
