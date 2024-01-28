@@ -87,9 +87,10 @@ span{
         flex-direction: column; /* Stack items vertically */
         align-items: center; /* Center items horizontally */
         text-align: center; /* Center text */
-        max-width: 80%; /* S
+        max-width: 95%; /* S
         maller width on mobile */
         height: auto; /* Maintain aspect ratio */
+        margin: 15px;
     }
 
     
