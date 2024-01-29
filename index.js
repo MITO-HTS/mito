@@ -88,11 +88,28 @@ function fetchTokenBalances(tokenId, url = `https://mainnet-public.mirrornode.he
 
 
 function createChart(data) {
+    // Define custom colors for specific wallets
+    const devWalletColor = 'blue'; // Color for developer wallet
+    const poolWalletColor = 'orange'; // Color for pool wallet
+
     // Prepare data for the chart
-    const labels = data.map(account => account.account);
+    const labels = data.map(account => {
+        if (account.account === '0.0.4569612') return 'Project Wallet';
+        if (account.account === '0.0.4569738') return 'Pool';
+        return account.account;
+    });
+
     const balancesDEC = data.map(account => account.balance);
     const balances = balancesDEC;
-    const backgroundColors = calculateGradientColors(data, [255, 192, 203], [0, 128, 0]); // Pink to Green
+
+    // Assign custom colors for specific wallets, and use gradient for the rest
+    const backgroundColors = data.map(account => {
+        if (account.account === '0.0.4569612') return devWalletColor;
+        if (account.account === '0.0.4569738') return poolWalletColor;
+        const factor = data.indexOf(account) / (data.length - 1);
+        const color = interpolateColor([255, 192, 203], [0, 128, 0], factor);
+        return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+    });
 
     const ctx = document.getElementById('tokenDistributionChart').getContext('2d');
     new Chart(ctx, {
@@ -112,14 +129,19 @@ function createChart(data) {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    position: 'top', // or 'bottom', 'left', 'right' depending on your layout
+                    position: 'top',
                     labels: {
-                        padding: 10 // Adjust this value for more or less padding
+                        padding: 10
                     }
                 }
-            }}
+            }
+        }
     });
 }
+
+// Example usage
+fetchTokenBalances('0.0.4569720');
+
 
 // Example usage
 fetchTokenBalances('0.0.4569720');
