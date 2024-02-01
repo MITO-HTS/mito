@@ -27,6 +27,10 @@ img {
     width: 100px;
 }
 
+#smallerText{
+    font-size: 1rem;
+}
+
 #chart-container, #data-container {
     -webkit-backdrop-filter: blur(30px);
     backdrop-filter: blur(30px);
@@ -132,7 +136,7 @@ h1, h2, button {
     }
 
     a, a:hover {
-        text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.5);
+        text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.1);
     }
 
     a {
