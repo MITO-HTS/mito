@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+* {
+    border: 1px solid red;
+}
 
 /* Base Styles */
 body, h2 {
@@ -34,8 +37,13 @@ img {
     border-style: solid;
     text-align: center;
     border-radius: 50px;
-    margin: 50px;
+
     border-color: rgb(0, 0, 0);
+  
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: 90%; 
+    box-sizing: border-box; 
 }
 
 a {
@@ -105,6 +113,8 @@ h1, h2, button {
         color: rgb(255, 255, 255);
         background-image: url(cellsDark.png); 
         background-color: #121212; 
+        flex-direction: column;
+        justify-content: flex-start; /* Align content to the start on small screens */
     }
 
 
@@ -112,6 +122,8 @@ h1, h2, button {
     #chart-container, #data-container {
         background-color: rgba(0, 0, 0, 0.6);
         border-color: rgb(255, 255, 255);
+        max-width: 100%; /* Allows containers to use full width on small screens */
+        margin: 20px;
     }
 
     a, a:hover {
