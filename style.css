@@ -84,6 +84,7 @@ h1{
 }
 
     #data-container img, #data-container h1, #data-container, #chart-container, h1 {
+        overflow: hidden;
         padding: 15px;
         margin: 15px;
     }
