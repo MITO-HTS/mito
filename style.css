@@ -102,6 +102,11 @@ span{
     background-color: rgb(186, 186, 186);
 
 }
+#searchButton:active{
+    color: black;
+    background-color: rgb(186, 186, 186);
+
+}
 
 @media screen and (max-width: 750px) {
     #data-container img {
