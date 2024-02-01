@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
-
+* {
+    border: 1px solid red;
+}
 
 /* Base Styles */
 body, h2 {
@@ -90,7 +92,7 @@ span {
     }
 
     #data-container h1 {
-        font-size: 1em;
+        font-size: 1rem;
         margin-left: 0px;
     }
 
@@ -106,6 +108,8 @@ span {
 h1, h2, button {
     color: white;
 }
+
+
 
     body {
         color: rgb(255, 255, 255);
