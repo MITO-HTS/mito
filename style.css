@@ -83,11 +83,10 @@ span {
 
 
 @media screen and (max-width: 750px) {
-h1{
-    text-align: center;
-}
+
 
     #data-container img, #data-container h1, #data-container, #chart-container, h1 {
+        text-align: center;
         overflow: hidden;
         padding: 15px;
         margin: 15px;
