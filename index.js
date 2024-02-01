@@ -1,3 +1,6 @@
+
+
+
 function fetchTokenHoldersCount(url = `https://mainnet-public.mirrornode.hedera.com/api/v1/tokens/0.0.4569720/balances?limit=10000`, count = 0) {
     fetch(url)
         .then(response => {
@@ -25,6 +28,15 @@ function fetchTokenHoldersCount(url = `https://mainnet-public.mirrornode.hedera.
             console.error('Error fetching token holders:', error);
         });
 }
+
+document.getElementById('searchButton').addEventListener('click', function() {
+    const tokenId = document.getElementById('tokenInput').value;
+    if (tokenId) {
+        fetchTokenBalances('tokenDistributionChart2', tokenId, undefined, [], function(numberOfHolders){
+            updateNumberOfHoldersUI('tokenDistributionChart2', numberOfHolders);
+        });
+    }
+});
 
 
 fetchTokenHoldersCount()
@@ -58,7 +70,7 @@ function calculateGradientColors(data, startColor, endColor) {
     });
 }
 
-function fetchTokenBalances(tokenId, url = `https://mainnet-public.mirrornode.hedera.com/api/v1/tokens/${tokenId}/balances?limit=10000`, balances = []) {
+function fetchTokenBalances(chart, tokenId, url = `https://mainnet-public.mirrornode.hedera.com/api/v1/tokens/${tokenId}/balances?limit=10000`, balances = [], callback = null) {
     fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -67,18 +79,17 @@ function fetchTokenBalances(tokenId, url = `https://mainnet-public.mirrornode.he
             return response.json();
         })
         .then(data => {
-            // Adjust each balance by dividing by 10 and filter out holders with a balance of zero
             const newBalances = data.balances
-                .map(holder => ({ ...holder, balance: holder.balance / 100 }))
+                .map(holder => ({ ...holder, balance: holder.balance / 100 })) // Adjust the balance if necessary
                 .filter(holder => holder.balance > 0);
             balances.push(...newBalances);
 
-            // Check if there's a link to the next page
             if (data.links && data.links.next) {
                 const nextUrl = `https://mainnet-public.mirrornode.hedera.com${data.links.next}`;
-                fetchTokenBalances(tokenId, nextUrl, balances);
+                fetchTokenBalances(chart, tokenId, nextUrl, balances, callback);
             } else {
-                createChart(balances); // Call function to create the chart
+                createChart(chart, balances);
+                if(callback) callback(balances.length);
             }
         })
         .catch(error => {
@@ -87,7 +98,31 @@ function fetchTokenBalances(tokenId, url = `https://mainnet-public.mirrornode.he
 }
 
 
-function createChart(data) {
+function updateNumberOfHoldersUI(chartId, count) {
+    // Determine the correct UI element ID based on the chartId
+    let elementId;
+    if (chartId === "tokenDistributionChart2") {
+        elementId = 'numberOfHoldersChart2'; // Assuming this is the ID for the second chart's holder count element
+    } else {
+        // Handle other cases or default behavior if necessary
+        elementId = 'defaultElementId'; // Placeholder, adjust as needed
+    }
+
+    const numberOfHoldersElement = document.getElementById(elementId);
+    if (numberOfHoldersElement) {
+        numberOfHoldersElement.textContent = `Number of Holders: ${count}`;
+    }
+}
+
+
+let chartInstances = {};
+function createChart(chart, data) {
+    data.sort((a, b) => b.balance - a.balance);
+
+    if (chartInstances[chart] && chart === "tokenDistributionChart2") {
+        chartInstances[chart].destroy();
+        delete chartInstances[chart]; // Optionally, remove the reference
+    }
     // Define custom colors for specific wallets
     const devWalletColor = 'blue'; // Color for developer wallet
     const poolWalletColor = 'orange'; // Color for pool wallet
@@ -111,8 +146,8 @@ function createChart(data) {
         return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
     });
 
-    const ctx = document.getElementById('tokenDistributionChart').getContext('2d');
-    new Chart(ctx, {
+    const ctx = document.getElementById(chart).getContext('2d');
+    chartInstances[chart] = new Chart(ctx, {
         type: 'pie',
         data: {
             labels: labels,
@@ -140,8 +175,5 @@ function createChart(data) {
 }
 
 // Example usage
-fetchTokenBalances('0.0.4569720');
+fetchTokenBalances('tokenDistributionChart', '0.0.4569720');
 
-
-// Example usage
-fetchTokenBalances('0.0.4569720');
